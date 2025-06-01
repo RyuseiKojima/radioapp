@@ -4,9 +4,17 @@
 <body>
 <h1>番組登録フォーム</h1>
 <form th:action="@{/programs}" th:object="${program}" method="post">
-    <label>タイトル: <input type="text" th:field="*{title}" /></label><br/>
-    <label>パーソナリティ: <input type="text" th:field="*{host}" /></label><br/>
-    <label>説明: <textarea th:field="*{description}"></textarea></label><br/>
+    <div>
+        <label>タイトル: <input type="text" th:field="*{title}" /></label><br/>
+        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+    </div>
+    <div>
+        <label>パーソナリティ: <input type="text" th:field="*{host}" /></label><br/>
+        <div th:if="${#fields.hasErrors('host')}" th:errors="*{host}"></div>
+    </div>
+    <div>
+        <label>説明: <textarea th:field="*{description}"></textarea></label>
+    </div>
     <button type="submit">登録</button>
 </form>
 <a href="/programs">戻る</a>
