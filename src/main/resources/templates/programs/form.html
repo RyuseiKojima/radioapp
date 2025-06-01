@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>番組登録</title></head>
+<body>
+<h1>番組登録フォーム</h1>
+<form th:action="@{/programs}" th:object="${program}" method="post">
+    <label>タイトル: <input type="text" th:field="*{title}" /></label><br/>
+    <label>パーソナリティ: <input type="text" th:field="*{host}" /></label><br/>
+    <label>説明: <textarea th:field="*{description}"></textarea></label><br/>
+    <button type="submit">登録</button>
+</form>
+<a href="/programs">戻る</a>
+</body>
+</html>
