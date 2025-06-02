@@ -4,6 +4,7 @@
 <body>
 <h1>番組登録フォーム</h1>
 <form th:action="@{/programs}" th:object="${program}" method="post">
+    <input type="hidden" th:field="*{id}" />
     <div>
         <label>タイトル: <input type="text" th:field="*{title}" /></label><br/>
         <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>

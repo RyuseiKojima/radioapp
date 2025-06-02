@@ -5,11 +5,15 @@
 <h1>ラジオ番組一覧</h1>
 <a href="/programs/new">新しい番組を登録</a>
 <ul>
-  <li th:each="program : ${programs}">
-    <strong th:text="${program.title}"></strong> -
-    <span th:text="${program.host}"></span><br/>
-    <em th:text="${program.description}"></em>
-  </li>
+    <li th:each="program : ${programs}">
+        <strong th:text="${program.title}"></strong> -
+        <span th:text="${program.host}"></span><br/>
+        <em th:text="${program.description}"></em>
+        <a th:href="@{/programs/edit/{id}(id=${program.id})}">編集</a> |
+        <form th:action="@{/programs/delete/{id}(id=${program.id})}" method="post" style="display:inline;">
+            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+        </form>
+    </li>
 </ul>
 </body>
 </html>

@@ -32,15 +32,30 @@ public class RadioProgramController {
         return "programs/form";
     }
 
-    // 登録処理
+    // 編集フォーム表示
+    @GetMapping("/edit/{id}")
+    public String editForm(@PathVariable Long id, Model model) {
+        RadioProgram program = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("指定されたIDが存在しません：" + id ));
+        model.addAttribute("program", program);
+        return "programs/form";
+    }
+
+    // 編集結果の保存（登録と同じPOST先）
     @PostMapping
-    public String create(@Validated @ModelAttribute("program") RadioProgram program, BindingResult result) {
+    public String save(@Validated @ModelAttribute("program") RadioProgram program, BindingResult result) {
         // @Valid を使い、BindingResult でエラーを拾う
         if (result.hasErrors()) {
             // バリデーションエラーがあればform画面に遷移
             return "programs/form";
         }
-        repository.save(program);
+        repository.save(program); // IDがあれば更新、なければ新規登録
+        return "redirect:/programs";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        repository.deleteById(id);
         return "redirect:/programs";
     }
 }
