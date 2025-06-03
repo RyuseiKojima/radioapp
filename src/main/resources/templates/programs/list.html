@@ -9,6 +9,7 @@
         <strong th:text="${program.title}"></strong> -
         <span th:text="${program.host}"></span><br/>
         <em th:text="${program.description}"></em>
+        <a th:href="@{/programs/{id}(id=${program.id})}">詳細を見る</a>
         <a th:href="@{/programs/edit/{id}(id=${program.id})}">編集</a> |
         <form th:action="@{/programs/delete/{id}(id=${program.id})}" method="post" style="display:inline;">
             <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head><title>番組詳細</title></head>
+    <body>
+        <h1 th:text="${program.title}">タイトル</h1>
+        <p>
+            <strong>パーソナリティ：</strong>
+            <span th:text="${program.host}">パーソナリティ名</span>
+        </p>
+        <p>
+            <strong>説明：</strong><br/>
+            <span th:text="${program.description}">説明文</span>
+        </p>
+        <a th:href="@{/programs}">一覧へ戻る</a>
+    </body>
+</html>

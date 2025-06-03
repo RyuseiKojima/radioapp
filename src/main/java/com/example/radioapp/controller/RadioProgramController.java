@@ -24,6 +24,13 @@ public class RadioProgramController {
         return "programs/list";
     }
 
+    @GetMapping("/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        RadioProgram program = service.findById(id);
+        model.addAttribute("program", program);
+        return "programs/detail";
+    }
+
     @GetMapping("/new")
     public String newForm(Model model) {
         model.addAttribute("program", new RadioProgram());
