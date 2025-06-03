@@ -11,6 +11,10 @@
             <strong>説明：</strong><br/>
             <span th:text="${program.description}">説明文</span>
         </p>
+        <p>
+            <strong>放送局：</strong>
+            <span th:text="${program.station.name}"></span>
+        </p>
         <a th:href="@{/programs}">一覧へ戻る</a>
     </body>
 </html>

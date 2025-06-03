@@ -2,6 +2,7 @@ package com.example.radioapp.controller;
 
 import com.example.radioapp.domain.RadioProgram;
 import com.example.radioapp.service.RadioProgramService;
+import com.example.radioapp.service.RadioStationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,21 +13,23 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/programs")
 public class RadioProgramController {
 
-    private final RadioProgramService service;
+    private final RadioProgramService programService;
+    private final RadioStationService stationService;
 
-    public RadioProgramController(RadioProgramService service) {
-        this.service = service;
+    public RadioProgramController(RadioProgramService programService, RadioStationService stationService) {
+        this.programService = programService;
+        this.stationService = stationService;
     }
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("programs", service.findAll());
+        model.addAttribute("programs", programService.findAll());
         return "programs/list";
     }
 
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
-        RadioProgram program = service.findById(id);
+        RadioProgram program = programService.findById(id);
         model.addAttribute("program", program);
         return "programs/detail";
     }
@@ -34,12 +37,14 @@ public class RadioProgramController {
     @GetMapping("/new")
     public String newForm(Model model) {
         model.addAttribute("program", new RadioProgram());
+        model.addAttribute("stations", stationService.findAll());
         return "programs/form";
     }
 
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Long id, Model model) {
-        model.addAttribute("program", service.findById(id));
+        model.addAttribute("program", programService.findById(id));
+        model.addAttribute("stations", stationService.findAll());
         return "programs/form";
     }
 
@@ -49,13 +54,13 @@ public class RadioProgramController {
         if (result.hasErrors()) {
             return "programs/form";
         }
-        service.save(program);
+        programService.save(program);
         return "redirect:/programs";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
-        service.delete(id);
+        programService.delete(id);
         return "redirect:/programs";
     }
 }
