@@ -2,19 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head><title>番組詳細</title></head>
     <body>
-        <h1 th:text="${program.title}">タイトル</h1>
-        <p>
-            <strong>パーソナリティ：</strong>
-            <span th:text="${program.host}">パーソナリティ名</span>
-        </p>
-        <p>
-            <strong>説明：</strong><br/>
-            <span th:text="${program.description}">説明文</span>
-        </p>
-        <p>
-            <strong>放送局：</strong>
-            <span th:text="${program.station.name}"></span>
-        </p>
-        <a th:href="@{/programs}">一覧へ戻る</a>
+        <h1 th:text="${program.title}">番組タイトル</h1>
+        <p>パーソナリティ：<span th:text="${program.host}">ホスト名</span></p>
+        <p th:text="${program.description}">説明</p>
+        <p>放送局：<span th:text="${program.station.name}">局名</span></p>
+        <a href="/programs">← 戻る</a>
     </body>
 </html>
