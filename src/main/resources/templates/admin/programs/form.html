@@ -21,7 +21,7 @@
                 <label>放送局:
                     <select th:field="*{station}">
                         <option th:each="station : ${stations}"
-                                th:value="${station}"
+                                th:value="${station.id}"
                                 th:text="${station.name}">局名</option>
                     </select>
                 </label>
