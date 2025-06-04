@@ -27,6 +27,7 @@ public class RadioProgram {
 
     @NotBlank(message = "パーソナリティは必須です")
     private String host;
+
     private String description;
 
     @ManyToOne

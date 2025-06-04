@@ -25,6 +25,7 @@
                                 th:text="${station.name}">局名</option>
                     </select>
                 </label>
+                <div th:if="${#fields.hasErrors('station')}" th:errors="*{station}"></div>
             </div>
             <div>
                 <label>説明:
