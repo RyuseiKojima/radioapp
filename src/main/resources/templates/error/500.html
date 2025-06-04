@@ -4,6 +4,7 @@
     <body>
         <h1>500 Server Error</h1>
         <p th:text="${errorMessage}">エラーメッセージ</p>
-        <a th:href="@{/programs}">一覧ページへ戻る</a>
+        <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/admin/programs}">管理者ページへ戻る</a>
+        <a th:if="${#authorization.expression('hasRole(''USER'')')}" th:href="@{/programs}">一覧ページへ戻る</a>
     </body>
 </html>
