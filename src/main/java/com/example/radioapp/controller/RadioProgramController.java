@@ -5,9 +5,9 @@ import com.example.radioapp.service.RadioProgramService;
 import com.example.radioapp.service.RadioStationService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/programs")
@@ -32,35 +32,5 @@ public class RadioProgramController {
         RadioProgram program = programService.findById(id);
         model.addAttribute("program", program);
         return "programs/detail";
-    }
-
-    @GetMapping("/new")
-    public String newForm(Model model) {
-        model.addAttribute("program", new RadioProgram());
-        model.addAttribute("stations", stationService.findAll());
-        return "programs/form";
-    }
-
-    @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable Long id, Model model) {
-        model.addAttribute("program", programService.findById(id));
-        model.addAttribute("stations", stationService.findAll());
-        return "programs/form";
-    }
-
-    @PostMapping
-    public String save(@Validated @ModelAttribute("program") RadioProgram program,
-                       BindingResult result) {
-        if (result.hasErrors()) {
-            return "programs/form";
-        }
-        programService.save(program);
-        return "redirect:/programs";
-    }
-
-    @PostMapping("/delete/{id}")
-    public String delete(@PathVariable Long id) {
-        programService.delete(id);
-        return "redirect:/programs";
     }
 }

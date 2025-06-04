@@ -5,11 +5,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @Data // getter, setter, toString, equals, hashCodeを自動生成
@@ -30,4 +33,7 @@ public class RadioProgram {
     @NotNull(message = "放送局を選択してください")
     @JoinColumn(name = "station_id")  // 外部キー列名
     private RadioStation station;
+
+    @ManyToMany(mappedBy = "followedPrograms")
+    private Set<AppUser> followers;
 }
