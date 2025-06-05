@@ -9,19 +9,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import java.io.IOException;
 
 @Configuration // 設定クラスであることを示す
-@EnableWebSecurity // Spring SecurityのWeb機能を有効にする
+@EnableWebSecurity
 public class SecurityConfig {
     /**
      * Spring SecurityのWebセキュリティ設定
@@ -32,52 +28,28 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/h2-console/**") // 開発用DBコンソールの例外的な許可
+                )
+                .headers(headers -> headers
+                        .frameOptions(frameOptions -> frameOptions.disable()) // HTTPヘッダーの X-Frame-Options を無効化
+                )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .formLogin(login -> login
-                        .loginPage("/login")           // カスタムログインページ（任意）
-                        .successHandler(customAuthenticationSuccessHandler())
-                        .permitAll()
+                        .loginPage("/login")
+                        .permitAll() // ログイン画面へのアクセス許可
+                        .successHandler(customAuthenticationSuccessHandler()) // 遷移先のカスタムハンドラ
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")
                 );
 
-        return http.build();
-    }
-
-    /**
-     * テスト用ユーザーの定義（メモリ上）
-     * @param encoder
-     * @return InMemoryUserDetailsManager
-     */
-    @Bean
-    public UserDetailsService userDetailsService(PasswordEncoder encoder) {
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(encoder.encode("adminpass"))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails user = User.builder()
-                .username("user")
-                .password(encoder.encode("userpass"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
-    }
-
-    /**
-     * パスワードを安全にハッシュ化するためのエンコーダ
-     * @return
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return http.build(); // SecurityFilterChain を構築し、Spring Security に登録
     }
 
     /**
@@ -105,5 +77,14 @@ public class SecurityConfig {
                 response.sendRedirect("/programs");
             }
         };
+    }
+
+    /**
+     * パスワードを安全にハッシュ化するためのエンコーダ
+     * @return
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }
