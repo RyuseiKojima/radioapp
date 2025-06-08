@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>感想投稿</title>
+    </head>
+    <body>
+        <form th:action="@{/impressions}" th:object="${impressionForm}" method="get">
+            <input type="hidden" th:field="*{programId}" />
+
+            <label>放送日:
+                <input type="date" th:field="*{broadcastDate}" required />
+            </label><br/>
+
+            <label>タイトル:
+                <input type="text" th:field="*{title}" required />
+            </label><br/>
+
+            <label>内容:
+                <textarea th:field="*{content}" required></textarea>
+            </label><br/>
+
+            <button type="submit">投稿</button>
+        </form>
+        <a th:href="@{/programs}">戻る</a>
+    </body>
+</html>

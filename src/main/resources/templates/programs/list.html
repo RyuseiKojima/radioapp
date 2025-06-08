@@ -9,9 +9,12 @@
                    th:text="${program.title}">番組タイトル</a>
                 -
                 <span th:text="${program.host}">パーソナリティ名</span>
-                <!-- フォローボタン -->
                 <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post">
                     <button type="submit">フォロー</button>
+                </form>
+                <form th:action="@{/impressions/new}" method="get">
+                    <input type="hidden" name="programId" th:value="${program.id}" />
+                    <button type="submit">感想を投稿</button>
                 </form>
             </li>
         </ul>

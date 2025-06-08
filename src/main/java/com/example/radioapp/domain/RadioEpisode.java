@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -22,5 +22,5 @@ public class RadioEpisode {
     private RadioProgram program;
 
     @Column(nullable = false)
-    private LocalDateTime airedAt;
+    private LocalDate broadcastDate;
 }
