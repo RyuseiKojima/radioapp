@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * フォローデータ業務処理
+ */
 @Service
 public class FollowService {
 
@@ -22,8 +25,8 @@ public class FollowService {
 
     /**
      * 番組をフォロー
-     * @param programId
-     * @param principalUser
+     * @param programId 番組id
+     * @param principalUser ユーザデータ
      */
     public void followProgram(Long programId, AppUser principalUser) {
         if (principalUser == null) {

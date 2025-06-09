@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * ラジオ放送局データ業務処理
+ */
 @Service
 public class RadioStationService {
 
@@ -15,6 +18,11 @@ public class RadioStationService {
         this.repository = repository;
     }
 
+    /**
+     * 全権取得
+     *
+     * @return ラジオ放送局一覧
+     */
     public List<RadioStation> findAll() {
         return repository.findAll();
     }

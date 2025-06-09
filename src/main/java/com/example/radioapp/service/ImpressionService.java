@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 /**
- * 感想データ関連の処理
+ * 感想データ業務処理
  */
 @Service
 public class ImpressionService {
@@ -28,6 +28,11 @@ public class ImpressionService {
         this.radioEpisodeService = radioEpisodeService;
     }
 
+    /**
+     * 感想を保存
+     * @param user ユーザデータ
+     * @param impressionForm 感想フォームデータ
+     */
     public void save(AppUser user, ImpressionForm impressionForm) {
         Long programId = impressionForm.getProgramId();
         LocalDate localDate = impressionForm.getBroadcastDate();

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 
 /**
- * ラジオエピソードデータ関連の操作
+ * ラジオエピソードデータ業務処理
  */
 @Service
 public class RadioEpisodeService {

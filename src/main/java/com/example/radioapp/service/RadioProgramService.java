@@ -6,29 +6,49 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * ラジオ番組データ業務処理
+ */
 @Service
 public class RadioProgramService {
 
-    private final RadioProgramRepository repository;
+    private final RadioProgramRepository radioProgramRepository;
 
-    public RadioProgramService(RadioProgramRepository repository) {
-        this.repository = repository;
+    public RadioProgramService(RadioProgramRepository radioProgramRepository) {
+        this.radioProgramRepository = radioProgramRepository;
     }
 
+    /**
+     * 全権取得
+     * @return ラジオ番組一覧
+     */
     public List<RadioProgram> findAll() {
-        return repository.findAll();
+        return radioProgramRepository.findAll();
     }
 
+    /**
+     * 1件取得
+     * @param id ラジオ番組id
+     * @return ラジオ番組
+     */
     public RadioProgram findById(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("指定されたIDが存在しません：" + id));
+        return radioProgramRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("番組が見つかりません：" + id));
     }
 
+    /**
+     * 保存
+     * @param program ラジオ番組データ
+     */
     public void save(RadioProgram program) {
-        repository.save(program);
+        radioProgramRepository.save(program);
     }
 
+    /**
+     * 削除
+     * @param id ラジオ番組id
+     */
     public void delete(Long id) {
-        repository.deleteById(id);
+        radioProgramRepository.deleteById(id);
     }
 }
