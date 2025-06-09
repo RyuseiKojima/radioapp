@@ -9,7 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 番組管理（管理者）
+ */
 @Controller
+@SuppressWarnings("unused")
 @RequestMapping("/admin/programs")
 public class AdminRadioProgramController {
 
@@ -22,14 +26,22 @@ public class AdminRadioProgramController {
         this.stationService = stationService;
     }
 
-    // 一覧（管理者用）
+    /**
+     * 一覧（管理者用）
+     * @param model viewへ渡すデータ
+     * @return 一覧画面に遷移
+     */
     @GetMapping
     public String adminList(Model model) {
         model.addAttribute("programs", programService.findAll());
         return "admin/programs/list";
     }
 
-    // 新規作成フォーム
+    /**
+     * 新規作成フォーム
+     * @param model viewへ渡すデータ
+     * @return フォーム画面に遷移
+     */
     @GetMapping("/new")
     public String newForm(Model model) {
         model.addAttribute("program", new RadioProgram());
@@ -37,7 +49,12 @@ public class AdminRadioProgramController {
         return "admin/programs/form";
     }
 
-    // 編集フォーム
+    /**
+     * 編集フォーム
+     * @param id id
+     * @param model viewへ渡すデータ
+     * @return フォーム画面に遷移
+     */
     @GetMapping("/edit/{id}")
     public String editForm(@PathVariable Long id, Model model) {
         RadioProgram program = programService.findById(id);
@@ -46,7 +63,13 @@ public class AdminRadioProgramController {
         return "admin/programs/form";
     }
 
-    // 保存（新規 or 更新）
+    /**
+     * 保存（新規 or 更新）
+     * @param program 番組データ
+     * @param result バリデ結果
+     * @param model viewへ渡すデータ
+     * @return 成功：一覧に遷移、失敗：フォームに戻る
+     */
     @PostMapping
     public String save(@Valid @ModelAttribute("program") RadioProgram program,
                        BindingResult result,
@@ -59,7 +82,11 @@ public class AdminRadioProgramController {
         return "redirect:/admin/programs";
     }
 
-    // 削除
+    /**
+     * 削除
+     * @param id id
+     * @return 一覧に遷移
+     */
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         programService.delete(id);

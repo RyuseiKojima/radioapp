@@ -15,7 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ * 感想投稿
+ */
 @Controller
+@SuppressWarnings("unused")
 @RequestMapping("/impressions")
 public class ImpressionController {
     private final ImpressionService impressionService;
@@ -26,9 +30,9 @@ public class ImpressionController {
 
     /**
      * 新規投稿フォーム
-     * @param programId
-     * @param model
-     * @return
+     * @param programId 番組id
+     * @param model viewへ渡すデータ
+     * @return フォーム画面に遷移
      */
     @GetMapping("/new/{programId}")
     public String newForm(@RequestParam Long programId, Model model) {
@@ -40,12 +44,12 @@ public class ImpressionController {
 
     /**
      * 保存処理
-     * @param user
-     * @param impressionForm
-     * @param result
-     * @param redirectAttributes
-     * @param model
-     * @return
+     * @param user ユーザデータ
+     * @param impressionForm 感想フォームデータ
+     * @param result バリデーション結果
+     * @param redirectAttributes リダイレクト先へ渡すデータ
+     * @param model 遷移先へ渡すデータ
+     * @return 保存結果によって遷移先を制御
      */
     @PostMapping("/post")
     public String post(@AuthenticationPrincipal AppUser user,
