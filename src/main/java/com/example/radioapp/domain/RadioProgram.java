@@ -14,6 +14,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
+/**
+ * 番組テーブル
+ */
 @Entity
 @Data // getter, setter, toString, equals, hashCodeを自動生成
 @NoArgsConstructor // 引数なしコンストラクタを自動生成

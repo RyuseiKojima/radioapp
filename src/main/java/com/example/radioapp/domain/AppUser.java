@@ -16,21 +16,34 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * ユーザテーブル
+ */
 @Entity
 @Data
 public class AppUser implements UserDetails {
+    /**
+     * id
+     */
     @Id
     @GeneratedValue
     private Long id;
 
+    /**
+     * ユーザ名
+     */
     @Column(nullable = false, unique = true)
     private String username;
 
+    /**
+     * パスワード
+     */
     @Column(nullable = false)
     private String password;
 
     /**
      * ロール
+     * デフォルトはUSER
      */
     private String role = "USER";
 
@@ -47,7 +60,7 @@ public class AppUser implements UserDetails {
 
     /**
      * ユーザーのロール情報を GrantedAuthority として返す
-     * @return
+     * @return ロール情報
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

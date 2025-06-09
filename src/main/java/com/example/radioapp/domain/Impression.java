@@ -6,27 +6,41 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * 感想テーブル
+ */
 @Entity
 @Data
 public class Impression {
-
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * ユーザデータ
+     */
     @ManyToOne(optional = false)
     private AppUser user;
 
+    /**
+     * エピソードデータ
+     */
     @ManyToOne(optional = false)
     private RadioEpisode episode;
 
-    @NotNull(message = "タイトル入力は必須です")
+    /**
+     * タイトル
+     */
     private String title;
 
-    @NotNull(message = "感想入力は必須です")
+    /**
+     * 感想
+     */
     @Column(length = 2000)
     private String content;
 }

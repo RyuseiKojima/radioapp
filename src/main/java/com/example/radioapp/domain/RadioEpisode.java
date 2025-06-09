@@ -10,17 +10,29 @@ import lombok.Data;
 
 import java.time.LocalDate;
 
+/**
+ * エピソードテーブル
+ */
 @Entity
 @Data
 public class RadioEpisode {
 
+    /**
+     * id
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * 番組データ
+     */
     @ManyToOne(optional = false)
     private RadioProgram program;
 
+    /**
+     * 放送日
+     */
     @Column(nullable = false)
     private LocalDate broadcastDate;
 }
