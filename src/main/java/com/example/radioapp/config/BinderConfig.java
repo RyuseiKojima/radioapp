@@ -9,7 +9,11 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import java.beans.PropertyEditorSupport;
 
-@ControllerAdvice // アプリケーション全体に対する共通の設定やエラーハンドリングなどをまとめる
+/**
+ * 共通の設定やエラーハンドリングなどをまとめる
+ */
+@SuppressWarnings("unused")
+@ControllerAdvice // アプリケーション全体に対する設定
 @RequiredArgsConstructor
 public class BinderConfig {
 
@@ -17,9 +21,9 @@ public class BinderConfig {
 
     /**
      * ラジオ番組の選択チェック（不正値にはnullを返す）
-     * @param binder
+     * @param binder WebDataBinder, エディタの登録に使用
      */
-    @InitBinder
+    @InitBinder // リクエストバインディング前に呼び出す
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(RadioStation.class, new PropertyEditorSupport() {
             @Override
