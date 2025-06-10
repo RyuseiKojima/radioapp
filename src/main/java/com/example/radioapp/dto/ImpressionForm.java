@@ -20,7 +20,7 @@ public class ImpressionForm {
     /**
      * 放送日
      */
-    @NotNull
+    @NotNull(message = "日付を選択してください")
     private LocalDate broadcastDate;
 
     /**

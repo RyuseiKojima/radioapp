@@ -5,20 +5,23 @@
         <title>感想投稿</title>
     </head>
     <body>
-        <form th:action="@{/impressions}" th:object="${impressionForm}" method="get">
+        <form th:action="@{/impressions/post}" th:object="${impressionForm}" method="post">
             <input type="hidden" th:field="*{programId}" />
 
             <label>放送日:
-                <input type="date" th:field="*{broadcastDate}" required />
+                <input type="date" th:field="*{broadcastDate}" />
             </label><br/>
+            <div th:if="${#fields.hasErrors('broadcastDate')}" th:errors="*{broadcastDate}"></div>
 
             <label>タイトル:
-                <input type="text" th:field="*{title}" required />
+                <input type="text" th:field="*{title}" />
             </label><br/>
+            <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 
             <label>内容:
-                <textarea th:field="*{content}" required></textarea>
+                <textarea th:field="*{content}" ></textarea>
             </label><br/>
+            <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
 
             <button type="submit">投稿</button>
         </form>

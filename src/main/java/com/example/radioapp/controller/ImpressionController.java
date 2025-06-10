@@ -10,9 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -30,12 +30,13 @@ public class ImpressionController {
 
     /**
      * 新規投稿フォーム
+     *
      * @param programId 番組id
-     * @param model viewへ渡すデータ
+     * @param model     viewへ渡すデータ
      * @return フォーム画面に遷移
      */
     @GetMapping("/new/{programId}")
-    public String newForm(@RequestParam Long programId, Model model) {
+    public String newForm(@PathVariable Long programId, Model model) {
         ImpressionForm impressionForm = new ImpressionForm();
         impressionForm.setProgramId(programId);
         model.addAttribute("impressionForm", impressionForm);
@@ -44,11 +45,12 @@ public class ImpressionController {
 
     /**
      * 保存処理
-     * @param user ユーザデータ
-     * @param impressionForm 感想フォームデータ
-     * @param result バリデーション結果
+     *
+     * @param user               ユーザデータ
+     * @param impressionForm     感想フォームデータ
+     * @param result             バリデーション結果
      * @param redirectAttributes リダイレクト先へ渡すデータ
-     * @param model 遷移先へ渡すデータ
+     * @param model              遷移先へ渡すデータ
      * @return 保存結果によって遷移先を制御
      */
     @PostMapping("/post")
@@ -66,9 +68,10 @@ public class ImpressionController {
             model.addAttribute("impressionForm", impressionForm);
             return "impressions/form";
         }
+
         impressionService.save(user, impressionForm);
 
         redirectAttributes.addFlashAttribute("message", "感想を投稿しました！");
-        return "redirect:/programs/list";
+        return "redirect:/programs";
     }
 }
