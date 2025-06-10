@@ -3,6 +3,9 @@
     <head><title>ラジオ番組一覧</title></head>
     <body>
         <h1>ラジオ番組一覧</h1>
+        <div th:if="${message}" class="alert alert-info">
+            <span th:text="${message}"></span>
+        </div>
         <ul>
             <li th:each="program : ${programs}">
                 <a th:href="@{'/programs/' + ${program.id}}"
@@ -12,8 +15,7 @@
                 <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post">
                     <button type="submit">フォロー</button>
                 </form>
-                <form th:action="@{/impressions/new}" method="get">
-                    <input type="hidden" name="programId" th:value="${program.id}" />
+                <form th:action="@{'/impressions/new/' + ${program.id}}" method="get">
                     <button type="submit">感想を投稿</button>
                 </form>
             </li>

@@ -5,6 +5,7 @@ import com.example.radioapp.service.RadioProgramService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,12 +25,15 @@ public class RadioProgramController {
 
     /**
      * 一覧画面
-     * @param model 遷移先に渡すデータ
+     *
+     * @param model   遷移先に渡すデータ
+     * @param message メッセージ
      * @return 一覧画面
      */
     @GetMapping
-    public String list(Model model) {
+    public String list(Model model, @ModelAttribute("message") String message) {
         model.addAttribute("programs", programService.findAll());
+        model.addAttribute("message", message);
         return "programs/list";
     }
 
