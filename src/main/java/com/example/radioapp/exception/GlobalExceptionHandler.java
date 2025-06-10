@@ -9,12 +9,19 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.ui.Model;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-@ControllerAdvice
+/**
+ * 共通の例外処理設定
+ */
+@SuppressWarnings("unused")
+@ControllerAdvice // 全てのコントローラで共有（例外処理などに使用）
 public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
      * 404 Not Found（存在しない番組など）
+     * @param e IllegalArgumentException
+     * @param model viewに渡すデータ
+     * @return 404画面
      */
     @ExceptionHandler(IllegalArgumentException.class)
     public String handleNotFound(IllegalArgumentException e, Model model) {
@@ -25,6 +32,9 @@ public class GlobalExceptionHandler {
 
     /**
      * Springのルーティングエラー（明示的にNoHandlerFoundExceptionが投げられた場合）
+     * @param e NoHandlerFoundException
+     * @param model viewに渡すデータ
+     * @return 404画面
      */
     @ExceptionHandler(NoHandlerFoundException.class)
     public String handleNoHandlerFound(NoHandlerFoundException e, Model model) {
@@ -35,6 +45,9 @@ public class GlobalExceptionHandler {
 
     /**
      * データベース操作に関する例外
+     * @param e DataAccessException
+     * @param model viewに渡すデータ
+     * @return 500画面
      */
     @ExceptionHandler(DataAccessException.class)
     public String handleDatabaseError(DataAccessException e, Model model) {
@@ -45,6 +58,9 @@ public class GlobalExceptionHandler {
 
     /**
      * その他の予期しない例外
+     * @param e Exception
+     * @param model viewに渡すデータ
+     * @return 500画面
      */
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e, Model model) {
