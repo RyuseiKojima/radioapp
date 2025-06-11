@@ -1,11 +1,17 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
     <head><title>番組詳細</title></head>
     <body>
-        <h1 th:text="${program.title}">番組タイトル</h1>
-        <p>パーソナリティ：<span th:text="${program.host}">ホスト名</span></p>
-        <p th:text="${program.description}">説明</p>
-        <p>放送局：<span th:text="${program.station.name}">局名</span></p>
-        <a href="/programs">← 戻る</a>
+        <main layout:fragment="content">
+            <h1>番組詳細</h1>
+            <h2 th:text="${program.title}">番組タイトル</h2>
+            <p>パーソナリティ：<span th:text="${program.host}">ホスト名</span></p>
+            <p th:text="${program.description}">説明</p>
+            <p>放送局：<span th:text="${program.station.name}">局名</span></p>
+            <a href="/programs">← 戻る</a>
+        </main>
     </body>
 </html>

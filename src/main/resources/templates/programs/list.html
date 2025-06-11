@@ -1,27 +1,29 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
-    <head><title>ラジオ番組一覧</title></head>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+    <head><title>番組一覧</title></head>
     <body>
-        <h1>ラジオ番組一覧</h1>
-        <div th:if="${message}" class="alert alert-info">
-            <span th:text="${message}"></span>
-        </div>
-        <ul>
-            <li th:each="program : ${programs}">
-                <a th:href="@{'/programs/' + ${program.id}}"
-                   th:text="${program.title}">番組タイトル</a>
-                -
-                <span th:text="${program.host}">パーソナリティ名</span>
-                <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post">
-                    <button type="submit">フォロー</button>
-                </form>
-                <form th:action="@{'/impressions/new/' + ${program.id}}" method="get">
-                    <button type="submit">感想を投稿</button>
-                </form>
-            </li>
-        </ul>
-        <form th:action="@{/logout}" method="post">
-            <button type="submit">ログアウト</button>
-        </form>
+        <main layout:fragment="content">
+            <h1>番組一覧</h1>
+            <div th:if="${message}" class="alert alert-info">
+                <span th:text="${message}"></span>
+            </div>
+            <ul>
+                <li th:each="program : ${programs}">
+                    <a th:href="@{'/programs/' + ${program.id}}"
+                       th:text="${program.title}">番組タイトル</a>
+                    -
+                    <span th:text="${program.host}">パーソナリティ名</span>
+                    <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post">
+                        <button type="submit">フォロー</button>
+                    </form>
+                    <form th:action="@{'/impressions/new/' + ${program.id}}" method="get">
+                        <button type="submit">感想を投稿</button>
+                    </form>
+                </li>
+            </ul>
+        </main>
     </body>
 </html>
