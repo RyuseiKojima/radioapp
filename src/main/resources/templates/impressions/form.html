@@ -5,6 +5,7 @@
         <title>感想投稿</title>
     </head>
     <body>
+        <h1>感想投稿</h1>
         <form th:action="@{/impressions/post}" th:object="${impressionForm}" method="post">
             <input type="hidden" th:field="*{programId}" />
 
