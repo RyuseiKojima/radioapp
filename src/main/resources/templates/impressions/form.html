@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>感想投稿</title>
-    </head>
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+    <head><title>感想投稿</title></head>
     <body>
-        <h1>感想投稿</h1>
-        <form th:action="@{/impressions/post}" th:object="${impressionForm}" method="post">
-            <input type="hidden" th:field="*{programId}" />
+        <main layout:fragment="content">
+            <h1>感想投稿</h1>
+            <form th:action="@{/impressions/post}" th:object="${impressionForm}" method="post">
+                <input type="hidden" th:field="*{programId}" />
 
-            <label>放送日:
-                <input type="date" th:field="*{broadcastDate}" />
-            </label><br/>
-            <div th:if="${#fields.hasErrors('broadcastDate')}" th:errors="*{broadcastDate}"></div>
+                <label>放送日:
+                    <input type="date" th:field="*{broadcastDate}" />
+                </label><br/>
+                <div th:if="${#fields.hasErrors('broadcastDate')}" th:errors="*{broadcastDate}"></div>
 
-            <label>タイトル:
-                <input type="text" th:field="*{title}" />
-            </label><br/>
-            <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                <label>タイトル:
+                    <input type="text" th:field="*{title}" />
+                </label><br/>
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
 
-            <label>内容:
-                <textarea th:field="*{content}" ></textarea>
-            </label><br/>
-            <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+                <label>内容:
+                    <textarea th:field="*{content}" ></textarea>
+                </label><br/>
+                <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
 
-            <button type="submit">投稿</button>
-        </form>
-        <a th:href="@{/programs}">戻る</a>
+                <button type="submit">投稿</button>
+            </form>
+            <a th:href="@{/programs}">戻る</a>
+        </main>
     </body>
 </html>
