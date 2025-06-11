@@ -1,31 +1,31 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
     <head><title>番組管理</title></head>
     <body>
-        <h1>番組管理画面</h1>
-
-        <a href="/admin/programs/new">＋ 新規作成</a>
-
-        <table border="1">
-            <thead>
-                <tr><th>タイトル</th><th>ホスト</th><th>局</th><th>操作</th></tr>
-            </thead>
-            <tbody>
-                <tr th:each="program : ${programs}">
-                    <td th:text="${program.title}">番組名</td>
-                    <td th:text="${program.host}">ホスト</td>
-                    <td th:text="${program.station.name}">放送局</td>
-                    <td>
-                        <a th:href="@{'/admin/programs/edit/' + ${program.id}}">編集</a>
-                        <form th:action="@{'/admin/programs/delete/' + ${program.id}}" method="post" style="display:inline;">
-                            <button type="submit">削除</button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <form th:action="@{/logout}" method="post">
-            <button type="submit">ログアウト</button>
-        </form>
+        <main layout:fragment="content">
+            <h1>番組管理画面</h1>
+            <a href="/admin/programs/new">＋ 新規作成</a>
+            <table border="1">
+                <thead>
+                    <tr><th>タイトル</th><th>ホスト</th><th>局</th><th>操作</th></tr>
+                </thead>
+                <tbody>
+                    <tr th:each="program : ${programs}">
+                        <td th:text="${program.title}">番組名</td>
+                        <td th:text="${program.host}">ホスト</td>
+                        <td th:text="${program.station.name}">放送局</td>
+                        <td>
+                            <a th:href="@{'/admin/programs/edit/' + ${program.id}}">編集</a>
+                            <form th:action="@{'/admin/programs/delete/' + ${program.id}}" method="post" style="display:inline;">
+                                <button type="submit">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
     </body>
 </html>
