@@ -1,9 +1,12 @@
 package com.example.radioapp.service;
 
+import com.example.radioapp.domain.AppUser;
+import com.example.radioapp.dto.UserRegistrationForm;
 import com.example.radioapp.repository.AppUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,9 +17,11 @@ import org.springframework.stereotype.Service;
 public class AppUserDetailsService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public AppUserDetailsService(AppUserRepository appUserRepository) {
+    public AppUserDetailsService(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -31,5 +36,17 @@ public class AppUserDetailsService implements UserDetailsService {
         // DBからユーザーを検索し、見つからなければ例外を投げる
         return appUserRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません: " + username));
+    }
+
+    /**
+     * ユーザデータを保存
+     * @param userRegistrationForm ユーザ登録フォームデータ
+     */
+    public void save(UserRegistrationForm userRegistrationForm) {
+        AppUser user = new AppUser();
+        user.setUsername(userRegistrationForm.getUsername());
+        user.setPassword(passwordEncoder.encode(userRegistrationForm.getPassword()));
+
+        appUserRepository.save(user);
     }
 }
