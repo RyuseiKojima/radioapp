@@ -2,6 +2,7 @@
 <html lang="ja"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/default}">
     <head><title>番組一覧</title></head>
     <body>
@@ -16,12 +17,14 @@
                        th:text="${program.title}">番組タイトル</a>
                     -
                     <span th:text="${program.host}">パーソナリティ名</span>
-                    <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post">
-                        <button type="submit">フォロー</button>
-                    </form>
-                    <form th:action="@{'/impressions/new/' + ${program.id}}" method="get">
-                        <button type="submit">感想を投稿</button>
-                    </form>
+                    <div sec:authorize="isAuthenticated()">
+                        <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post">
+                            <button type="submit">フォロー</button>
+                        </form>
+                        <form th:action="@{'/impressions/new/' + ${program.id}}" method="get">
+                            <button type="submit">感想を投稿</button>
+                        </form>
+                    </div>
                 </li>
             </ul>
         </main>
