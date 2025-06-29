@@ -4,35 +4,65 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/default}">
-    <head><title>番組一覧</title></head>
+    <head>
+        <title>番組一覧</title>
+        <link rel="stylesheet" th:href="@{/css/programs.css}">
+    </head>
     <body>
-        <main layout:fragment="content">
-            <h1>番組一覧</h1>
-            <div th:if="${message != null and message != ''}" class="alert alert-info">
+        <main layout:fragment="content" class="container mt-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="display-5 fw-bold text-primary">
+                    <i class="bi bi-broadcast"></i> 番組一覧
+                </h1>
+            </div>
+            
+            <div th:if="${message != null and message != ''}" class="alert alert-info alert-dismissible fade show" role="alert">
+                <i class="bi bi-info-circle-fill me-2"></i>
                 <span th:text="${message}"></span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             
-            <div th:if="${#lists.isEmpty(programs)}" class="alert alert-warning text-center">
-                <i class="bi bi-info-circle"></i>
-                登録された番組がありません。
+            <div th:if="${#lists.isEmpty(programs)}" class="text-center py-5">
+                <div class="mb-4">
+                    <i class="bi bi-radio text-muted" style="font-size: 4rem;"></i>
+                </div>
+                <h3 class="text-muted mb-3">番組がまだありません</h3>
+                <p class="text-muted">新しい番組が追加されるまでお待ちください。</p>
             </div>
             
-            <ul th:unless="${#lists.isEmpty(programs)}">
-                <li th:each="program : ${programs}">
-                    <a th:href="@{'/programs/' + ${program.id}}"
-                       th:text="${program.title}">番組タイトル</a>
-                    -
-                    <span th:text="${program.host}">パーソナリティ名</span>
-                    <div sec:authorize="isAuthenticated()">
-                        <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post">
-                            <button type="submit">フォロー</button>
-                        </form>
-                        <form th:action="@{'/impressions/new/' + ${program.id}}" method="get">
-                            <button type="submit">感想を投稿</button>
-                        </form>
+            <div th:unless="${#lists.isEmpty(programs)}" class="row g-4">
+                <div th:each="program : ${programs}" class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0 program-card">
+                        <div class="card-header bg-gradient bg-primary text-white">
+                            <h5 class="card-title mb-0">
+                                <i class="bi bi-mic-fill me-2"></i>
+                                <a th:href="@{'/programs/' + ${program.id}}" 
+                                   class="text-white text-decoration-none program-title-link"
+                                   th:text="${program.title}">番組タイトル</a>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-person-circle text-secondary me-2"></i>
+                                <span class="text-muted fw-medium" th:text="${program.host}">パーソナリティ名</span>
+                            </div>
+                            
+                            <div sec:authorize="isAuthenticated()" class="d-grid gap-2 position-relative">
+                                <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-success btn-sm w-100 position-relative">
+                                        <i class="bi bi-heart me-1"></i>フォロー
+                                    </button>
+                                </form>
+                                <form th:action="@{'/impressions/new/' + ${program.id}}" method="get" class="d-inline">
+                                    <button type="submit" class="btn btn-outline-primary btn-sm w-100 position-relative">
+                                        <i class="bi bi-chat-dots me-1"></i>感想を投稿
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </main>
     </body>
 </html>

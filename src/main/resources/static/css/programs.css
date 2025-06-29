@@ -1,0 +1,38 @@
+.program-card {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+}
+
+.program-card .card-header {
+    border-bottom: none;
+}
+
+.program-title-link:hover {
+    text-decoration: underline !important;
+}
+
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    z-index: 10;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* ボタンがクリック可能になるように確保 */
+.position-relative .btn {
+    position: relative;
+    z-index: 20;
+}
