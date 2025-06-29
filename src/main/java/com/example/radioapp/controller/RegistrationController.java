@@ -28,7 +28,7 @@ public class RegistrationController {
      * @param model Viewに渡すデータ
      * @return ページ
      */
-    @GetMapping("/")
+    @GetMapping
     public String showForm(Model model) {
         model.addAttribute("form", new UserRegistrationForm());
         return "register";
@@ -40,7 +40,7 @@ public class RegistrationController {
      * @param result バリデ結果
      * @return ページ
      */
-    @PostMapping("/")
+    @PostMapping
     public String register(@ModelAttribute("form") @Valid UserRegistrationForm form,
                            BindingResult result) {
         if (result.hasErrors()) {
