@@ -5,6 +5,7 @@ INSERT INTO radio_station (id, name) VALUES (3, 'TOKYO FM');
 
 -- ラジオ番組
 INSERT INTO radio_program (title, host, description, station_id) VALUES ('オードリーANN', 'オードリー', '', 1);
+INSERT INTO radio_program (title, host, description, station_id) VALUES ('星野源ANN', '星野源', '', 1);
 
 -- ユーザー
 -- password: userpass
