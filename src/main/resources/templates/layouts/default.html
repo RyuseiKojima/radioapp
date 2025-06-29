@@ -42,8 +42,11 @@
                     
                     <!-- 未認証ユーザー表示 -->
                     <div sec:authorize="isAnonymous()">
-                        <a th:href="@{/login}" class="btn btn-outline-light">
+                        <a th:href="@{/login}" class="btn btn-outline-light me-2">
                             <i class="bi bi-box-arrow-in-right"></i> ログイン
+                        </a>
+                        <a th:href="@{/register}" class="btn btn-outline-light">
+                            <i class="bi bi-person-plus"></i> 新規登録
                         </a>
                     </div>
                 </div>
