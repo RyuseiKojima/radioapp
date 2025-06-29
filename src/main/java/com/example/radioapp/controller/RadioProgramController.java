@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * ラジオ番組
  */
 @Controller
-@SuppressWarnings("unused")
 @RequestMapping("/programs")
 public class RadioProgramController {
 

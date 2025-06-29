@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * ラジオ番組
  */
 @Controller
-@SuppressWarnings("unused")
 @RequestMapping("/register")
 public class RegistrationController {
     private final AppUserDetailsService appUserDetailsService;

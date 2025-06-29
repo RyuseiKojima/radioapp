@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
  * 番組管理（管理者）
  */
 @Controller
-@SuppressWarnings("unused")
 @RequestMapping("/admin/programs")
 public class AdminRadioProgramController {
 

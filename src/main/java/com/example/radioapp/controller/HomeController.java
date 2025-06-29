@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
  * ホーム画面
  */
 @Controller
-@SuppressWarnings("unused")
 public class HomeController {
     /**
      * ホーム画面

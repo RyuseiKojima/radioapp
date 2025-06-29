@@ -12,7 +12,6 @@ import java.beans.PropertyEditorSupport;
 /**
  * 共通の設定やエラーハンドリングなどをまとめる
  */
-@SuppressWarnings("unused")
 @ControllerAdvice // アプリケーション全体に対する設定
 @RequiredArgsConstructor
 public class BinderConfig {

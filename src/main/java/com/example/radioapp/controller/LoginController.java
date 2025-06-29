@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
  * ログイン機能
  */
 @Controller
-@SuppressWarnings("unused")
 public class LoginController {
 
     /**

@@ -19,7 +19,6 @@ import java.io.IOException;
 /**
  *  Spring Securityの設定
  */
-@SuppressWarnings("unused")
 @Configuration // 設定クラスであることを示す
 @EnableWebSecurity
 public class SecurityConfig {

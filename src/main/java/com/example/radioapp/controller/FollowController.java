@@ -12,7 +12,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
  * 番組フォロー
  */
 @Controller
-@SuppressWarnings("unused")
 public class FollowController {
 
     private final FollowService followService;

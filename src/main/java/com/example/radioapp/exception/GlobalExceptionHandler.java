@@ -12,7 +12,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 /**
  * 共通の例外処理設定
  */
-@SuppressWarnings("unused")
 @ControllerAdvice // 全てのコントローラで共有（例外処理などに使用）
 public class GlobalExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);

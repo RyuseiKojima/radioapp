@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
  * ユーザデータ業務処理
  */
 @Service
-@SuppressWarnings("unused") // Spring Securityによって自動で呼ばれるため
 public class AppUserDetailsService implements UserDetailsService {
 
     private final AppUserRepository appUserRepository;

@@ -19,7 +19,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * 感想投稿
  */
 @Controller
-@SuppressWarnings("unused")
 @RequestMapping("/impressions")
 public class ImpressionController {
     private final ImpressionService impressionService;
