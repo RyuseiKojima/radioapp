@@ -8,10 +8,16 @@
     <body>
         <main layout:fragment="content">
             <h1>番組一覧</h1>
-            <div th:if="${message}" class="alert alert-info">
+            <div th:if="${message != null and message != ''}" class="alert alert-info">
                 <span th:text="${message}"></span>
             </div>
-            <ul>
+            
+            <div th:if="${#lists.isEmpty(programs)}" class="alert alert-warning text-center">
+                <i class="bi bi-info-circle"></i>
+                登録された番組がありません。
+            </div>
+            
+            <ul th:unless="${#lists.isEmpty(programs)}">
                 <li th:each="program : ${programs}">
                     <a th:href="@{'/programs/' + ${program.id}}"
                        th:text="${program.title}">番組タイトル</a>
