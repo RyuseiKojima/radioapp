@@ -1,8 +1,10 @@
 package com.example.radioapp.controller;
 
 import com.example.radioapp.domain.AppUser;
+import com.example.radioapp.domain.Impression;
 import com.example.radioapp.domain.RadioProgram;
 import com.example.radioapp.service.FollowService;
+import com.example.radioapp.service.ImpressionService;
 import com.example.radioapp.service.RadioProgramService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -24,10 +26,12 @@ public class RadioProgramController {
 
     private final RadioProgramService programService;
     private final FollowService followService;
+    private final ImpressionService impressionService;
 
-    public RadioProgramController(RadioProgramService programService, FollowService followService) {
+    public RadioProgramController(RadioProgramService programService, FollowService followService, ImpressionService impressionService) {
         this.programService = programService;
         this.followService = followService;
+        this.impressionService = impressionService;
     }
 
     /**
@@ -62,7 +66,10 @@ public class RadioProgramController {
     @GetMapping("/{id}")
     public String detail(@PathVariable Long id, Model model) {
         RadioProgram program = programService.findById(id);
+        List<Impression> impressions = impressionService.findByProgramId(id);
+        
         model.addAttribute("program", program);
+        model.addAttribute("impressions", impressions);
         return "programs/detail";
     }
 }

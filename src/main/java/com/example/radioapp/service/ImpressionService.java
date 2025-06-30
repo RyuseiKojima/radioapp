@@ -10,6 +10,7 @@ import com.example.radioapp.repository.RadioProgramRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * 感想データ業務処理
@@ -56,5 +57,14 @@ public class ImpressionService {
         impression.setContent(content);
 
         impressionRepository.save(impression);
+    }
+
+    /**
+     * 番組IDから感想一覧を取得
+     * @param programId 番組ID
+     * @return 感想一覧
+     */
+    public List<Impression> findByProgramId(Long programId) {
+        return impressionRepository.findByProgramId(programId);
     }
 }
