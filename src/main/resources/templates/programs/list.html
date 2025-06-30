@@ -7,6 +7,7 @@
     <head>
         <title>番組一覧</title>
         <link rel="stylesheet" th:href="@{/css/programs.css}">
+        <script th:src="@{/js/follow.js}" defer></script>
     </head>
     <body>
         <main layout:fragment="content" class="container mt-4">
@@ -48,11 +49,13 @@
                             </div>
                             
                             <div sec:authorize="isAuthenticated()" class="d-grid gap-2 position-relative">
-                                <form th:action="@{'/programs/' + ${program.id} + '/follow'}" method="post" class="d-inline">
-                                    <button type="submit" class="btn btn-outline-success btn-sm w-100 position-relative">
-                                        <i class="bi bi-heart me-1"></i>フォロー
-                                    </button>
-                                </form>
+                                <button type="button" 
+                                        th:data-program-id="${program.id}"
+                                        th:data-is-following="${followStatusMap != null and followStatusMap.containsKey(program.id) ? followStatusMap[program.id] : false}"
+                                        class="btn btn-outline-success btn-sm w-100 position-relative follow-btn">
+                                    <i class="bi bi-heart me-1 follow-icon"></i>
+                                    <span class="follow-text">フォロー</span>
+                                </button>
                                 <form th:action="@{'/impressions/new/' + ${program.id}}" method="get" class="d-inline">
                                     <button type="submit" class="btn btn-outline-primary btn-sm w-100 position-relative">
                                         <i class="bi bi-chat-dots me-1"></i>感想を投稿
