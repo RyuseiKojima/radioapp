@@ -5,29 +5,79 @@
       layout:decorate="~{layouts/default}">
     <head><title>感想投稿</title></head>
     <body>
-        <main layout:fragment="content">
-            <h1>感想投稿</h1>
-            <form th:action="@{/impressions/post}" th:object="${impressionForm}" method="post">
-                <input type="hidden" th:field="*{programId}" />
+        <main layout:fragment="content" class="container mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-gradient bg-primary text-white">
+                            <h1 class="card-title mb-0 h3">
+                                <i class="bi bi-chat-dots-fill me-2"></i>感想投稿
+                            </h1>
+                        </div>
+                        <div class="card-body p-4">
+                            <form th:action="@{/impressions/post}" th:object="${impressionForm}" method="post">
+                                <input type="hidden" th:field="*{programId}" />
 
-                <label>放送日:
-                    <input type="date" th:field="*{broadcastDate}" />
-                </label><br/>
-                <div th:if="${#fields.hasErrors('broadcastDate')}" th:errors="*{broadcastDate}"></div>
+                                <div class="mb-3">
+                                    <label for="broadcastDate" class="form-label fw-bold">
+                                        <i class="bi bi-calendar3 me-1"></i>放送日
+                                    </label>
+                                    <input type="date" 
+                                           id="broadcastDate"
+                                           th:field="*{broadcastDate}" 
+                                           class="form-control"
+                                           th:classappend="${#fields.hasErrors('broadcastDate')} ? 'is-invalid' : ''" />
+                                    <div th:if="${#fields.hasErrors('broadcastDate')}" 
+                                         class="invalid-feedback" 
+                                         th:errors="*{broadcastDate}"></div>
+                                </div>
 
-                <label>タイトル:
-                    <input type="text" th:field="*{title}" />
-                </label><br/>
-                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                                <div class="mb-3">
+                                    <label for="title" class="form-label fw-bold">
+                                        <i class="bi bi-pencil me-1"></i>タイトル
+                                    </label>
+                                    <input type="text" 
+                                           id="title"
+                                           th:field="*{title}" 
+                                           class="form-control"
+                                           placeholder="感想のタイトルを入力してください"
+                                           th:classappend="${#fields.hasErrors('title')} ? 'is-invalid' : ''" />
+                                    <div th:if="${#fields.hasErrors('title')}" 
+                                         class="invalid-feedback" 
+                                         th:errors="*{title}"></div>
+                                </div>
 
-                <label>内容:
-                    <textarea th:field="*{content}" ></textarea>
-                </label><br/>
-                <div th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
+                                <div class="mb-4">
+                                    <label for="content" class="form-label fw-bold">
+                                        <i class="bi bi-chat-text me-1"></i>感想内容
+                                    </label>
+                                    <textarea id="content"
+                                              th:field="*{content}" 
+                                              class="form-control"
+                                              rows="6"
+                                              placeholder="番組を聞いた感想を詳しく書いてください..."
+                                              th:classappend="${#fields.hasErrors('content')} ? 'is-invalid' : ''"></textarea>
+                                    <div th:if="${#fields.hasErrors('content')}" 
+                                         class="invalid-feedback" 
+                                         th:errors="*{content}"></div>
+                                    <div class="form-text">
+                                        <i class="bi bi-info-circle me-1"></i>番組の良かった点や印象に残った内容を自由に書いてください
+                                    </div>
+                                </div>
 
-                <button type="submit">投稿</button>
-            </form>
-            <a th:href="@{/programs}">戻る</a>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a th:href="@{/programs}" class="btn btn-outline-secondary me-md-2">
+                                        <i class="bi bi-arrow-left me-1"></i>戻る
+                                    </a>
+                                    <button type="submit" class="btn btn-primary px-4">
+                                        <i class="bi bi-send me-1"></i>投稿する
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </body>
 </html>
