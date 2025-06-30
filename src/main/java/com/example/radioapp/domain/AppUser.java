@@ -7,20 +7,25 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * ユーザテーブル
  */
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 public class AppUser implements UserDetails {
     /**
      * id
@@ -65,6 +70,25 @@ public class AppUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "ROLE_" + role);
+    }
+
+    /**
+     * 双方向関連で無限ループを避けるためにidのみでhashCodeを計算
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AppUser appUser = (AppUser) o;
+        return Objects.equals(id, appUser.id);
+    }
+
+    /**
+     * 双方向関連で無限ループを避けるためにidのみでhashCodeを計算
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
 
