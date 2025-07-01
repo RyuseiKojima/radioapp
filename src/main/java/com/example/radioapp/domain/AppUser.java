@@ -74,13 +74,15 @@ public class AppUser implements UserDetails {
 
     /**
      * 双方向関連で無限ループを避けるためにidのみでhashCodeを計算
+     * IDがnullの場合は、異なるインスタンスは等しくないと見なす
      */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AppUser appUser = (AppUser) o;
-        return Objects.equals(id, appUser.id);
+        // IDがnullの場合は等しくない（まだ永続化されていないエンティティ）
+        return id != null && Objects.equals(id, appUser.id);
     }
 
     /**
